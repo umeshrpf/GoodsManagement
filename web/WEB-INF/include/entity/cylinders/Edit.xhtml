@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CylindersEditDlg" widgetVar="CylindersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCylindersTitle}" closeOnEscape="true">
+
+            <h:form id="CylindersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cylindersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCylindersLabel_cylinderId}" for="cylinderId" />
+                        <h:outputText id="cylinderId" value="#{cylindersController.selected.cylinderId}" />
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_capacity}" for="capacity" />
+                        <p:inputText id="capacity" value="#{cylindersController.selected.capacity}" title="#{myBundle.EditCylindersTitle_capacity}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_cylinderNumber}" for="cylinderNumber" />
+                        <p:inputText id="cylinderNumber" value="#{cylindersController.selected.cylinderNumber}" title="#{myBundle.EditCylindersTitle_cylinderNumber}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_free}" for="free" />
+                        <p:selectBooleanCheckbox id="free" value="#{cylindersController.selected.free}" />
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_invoiceDate}" for="invoiceDate" />
+                        <p:calendar id="invoiceDate" pattern="MM/dd/yyyy" value="#{cylindersController.selected.invoiceDate}" title="#{myBundle.EditCylindersTitle_invoiceDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_invoiceNumber}" for="invoiceNumber" />
+                        <p:inputText id="invoiceNumber" value="#{cylindersController.selected.invoiceNumber}" title="#{myBundle.EditCylindersTitle_invoiceNumber}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_lastTestDate}" for="lastTestDate" />
+                        <p:calendar id="lastTestDate" pattern="MM/dd/yyyy" value="#{cylindersController.selected.lastTestDate}" title="#{myBundle.EditCylindersTitle_lastTestDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{cylindersController.selected.manufacturer}" title="#{myBundle.EditCylindersTitle_manufacturer}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_ownerName}" for="ownerName" />
+                        <p:inputText id="ownerName" value="#{cylindersController.selected.ownerName}" title="#{myBundle.EditCylindersTitle_ownerName}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_remarks}" for="remarks" />
+                        <p:inputText id="remarks" value="#{cylindersController.selected.remarks}" title="#{myBundle.EditCylindersTitle_remarks}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{cylindersController.selected.status}" title="#{myBundle.EditCylindersTitle_status}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylindersLabel_gasTypeId}" for="gasTypeId" />
+                        <p:selectOneMenu id="gasTypeId" value="#{cylindersController.selected.gasTypeId}"  converter="gasInfoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{gasInfoController.items}"
+                                           var="gasTypeIdItem"
+                                           itemValue="#{gasTypeIdItem}"
+                                           itemLabel="#{gasTypeIdItem.gasTypeId.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cylindersController.save}" value="#{myBundle.Save}" update="display,:CylindersListForm:datalist,:CylindersListForm:CylindersDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CylindersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CylindersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

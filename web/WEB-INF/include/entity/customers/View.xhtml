@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CustomersViewDlg" widgetVar="CustomersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCustomersTitle}" closeOnEscape="true">
+
+            <h:form id="CustomersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{customersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_customerId}"/>
+                        <h:outputText value="#{customersController.selected.customerId}" title="#{myBundle.ViewCustomersTitle_customerId}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_contactNumber}"/>
+                        <h:outputText value="#{customersController.selected.contactNumber}" title="#{myBundle.ViewCustomersTitle_contactNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_contactPerson}"/>
+                        <h:outputText value="#{customersController.selected.contactPerson}" title="#{myBundle.ViewCustomersTitle_contactPerson}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_customerAddress}"/>
+                        <h:outputText value="#{customersController.selected.customerAddress}" title="#{myBundle.ViewCustomersTitle_customerAddress}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_dumbrage0To15}"/>
+                        <h:outputText value="#{customersController.selected.dumbrage0To15}" title="#{myBundle.ViewCustomersTitle_dumbrage0To15}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_dumbrage15To30}"/>
+                        <h:outputText value="#{customersController.selected.dumbrage15To30}" title="#{myBundle.ViewCustomersTitle_dumbrage15To30}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_dumbrage30To45}"/>
+                        <h:outputText value="#{customersController.selected.dumbrage30To45}" title="#{myBundle.ViewCustomersTitle_dumbrage30To45}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_dumbrage45To60}"/>
+                        <h:outputText value="#{customersController.selected.dumbrage45To60}" title="#{myBundle.ViewCustomersTitle_dumbrage45To60}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_dumbrageOver90}"/>
+                        <h:outputText value="#{customersController.selected.dumbrageOver90}" title="#{myBundle.ViewCustomersTitle_dumbrageOver90}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_fullName}"/>
+                        <h:outputText value="#{customersController.selected.fullName}" title="#{myBundle.ViewCustomersTitle_fullName}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_gstNumber}"/>
+                        <h:outputText value="#{customersController.selected.gstNumber}" title="#{myBundle.ViewCustomersTitle_gstNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_shortName}"/>
+                        <h:outputText value="#{customersController.selected.shortName}" title="#{myBundle.ViewCustomersTitle_shortName}"/>
+
+                        <h:outputText value="#{myBundle.ViewCustomersLabel_status}"/>
+                        <h:outputText value="#{customersController.selected.status}" title="#{myBundle.ViewCustomersTitle_status}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CustomersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CylinderTransactionEditDlg" widgetVar="CylinderTransactionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCylinderTransactionTitle}" closeOnEscape="true">
+
+            <h:form id="CylinderTransactionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cylinderTransactionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCylinderTransactionLabel_transactionId}" for="transactionId" />
+                        <h:outputText id="transactionId" value="#{cylinderTransactionController.selected.transactionId}" />
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_logOutInvoiceNo}" for="logOutInvoiceNo" />
+                        <p:inputText id="logOutInvoiceNo" value="#{cylinderTransactionController.selected.logOutInvoiceNo}" title="#{myBundle.EditCylinderTransactionTitle_logOutInvoiceNo}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_loginDate}" for="loginDate" />
+                        <p:calendar id="loginDate" pattern="MM/dd/yyyy" value="#{cylinderTransactionController.selected.loginDate}" title="#{myBundle.EditCylinderTransactionTitle_loginDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_loginInvoiceNo}" for="loginInvoiceNo" />
+                        <p:inputText id="loginInvoiceNo" value="#{cylinderTransactionController.selected.loginInvoiceNo}" title="#{myBundle.EditCylinderTransactionTitle_loginInvoiceNo}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_logOutDate}" for="logOutDate" />
+                        <p:calendar id="logOutDate" pattern="MM/dd/yyyy" value="#{cylinderTransactionController.selected.logOutDate}" title="#{myBundle.EditCylinderTransactionTitle_logOutDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_customerId}" for="customerId" />
+                        <p:selectOneMenu id="customerId" value="#{cylinderTransactionController.selected.customerId}"  converter="customersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customersController.items}"
+                                           var="customerIdItem"
+                                           itemValue="#{customerIdItem}"
+                                           itemLabel="#{customerIdItem.fullName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCylinderTransactionLabel_cylinderId}" for="cylinderId" />
+                        <p:selectOneMenu id="cylinderId" value="#{cylinderTransactionController.selected.cylinderId}"  converter="cylindersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cylindersController.items}"
+                                           var="cylinderIdItem"
+                                           itemValue="#{cylinderIdItem}"
+                                           itemLabel="#{cylinderIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cylinderTransactionController.save}" value="#{myBundle.Save}" update="display,:CylinderTransactionListForm:datalist,:CylinderTransactionListForm:CylinderTransactionDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CylinderTransactionEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CylinderTransactionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

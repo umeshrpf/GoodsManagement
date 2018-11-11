@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CylindersListForm">
+
+        <p:panel header="#{myBundle.ListCylindersTitle}">
+            <p:contextMenu id="CylindersDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CylindersListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CylindersListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CylindersListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CylindersListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CylindersMenuItem_cylinderTransactionCollection}" icon="ui-icon-search"  action="#{cylindersController.navigateCylinderTransactionCollection}" disabled="#{cylindersController.isCylinderTransactionCollectionEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CylindersMenuItem_gasTypeId}" icon="ui-icon-search"  actionListener="#{cylindersController.prepareGasTypeId}" update=":GasInfoViewForm" oncomplete="PF('GasInfoViewDialog').show()" disabled="#{empty cylindersController.selected.gasTypeId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{cylindersController.items}"
+                         lazy="false"
+                         rowKey="#{item.cylinderId}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cylindersController.selected}"
+                         filteredValue="#{cylindersController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cylindersController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.cylinderId}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CylindersDataTableContextMenu" listener="#{cylindersController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CylindersDataTableContextMenu" listener="#{cylindersController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{cylindersController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CylindersListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.cylinderId}" filterBy="#{item.cylinderId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_cylinderId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cylinderId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.capacity}" filterBy="#{item.capacity}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_capacity}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.capacity}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cylinderNumber}" filterBy="#{item.cylinderNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_cylinderNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cylinderNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.free}" filterBy="#{item.free}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_free}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="free" value="#{item.free}" title="#{myBundle.EditCylindersTitle_free}"  disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.invoiceDate}" filterBy="#{item.invoiceDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_invoiceDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.invoiceDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.invoiceNumber}" filterBy="#{item.invoiceNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_invoiceNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.invoiceNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastTestDate}" filterBy="#{item.lastTestDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_lastTestDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastTestDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.manufacturer}" filterBy="#{item.manufacturer}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_manufacturer}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.manufacturer}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ownerName}" filterBy="#{item.ownerName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_ownerName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ownerName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.remarks}" filterBy="#{item.remarks}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_remarks}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.remarks}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gasTypeId.gasTypeId}" filterBy="#{item.gasTypeId.gasTypeId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylindersTitle_gasTypeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gasTypeId.gasTypeId}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cylindersController.prepareCreate}" update=":CylindersCreateForm" oncomplete="PF('CylindersCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CylindersViewForm" oncomplete="PF('CylindersViewDialog').show()" disabled="#{empty cylindersController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CylindersEditForm" oncomplete="PF('CylindersEditDialog').show()" disabled="#{empty cylindersController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cylindersController.delete}" update=":growl,datalist" disabled="#{empty cylindersController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

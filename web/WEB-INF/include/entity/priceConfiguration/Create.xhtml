@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PriceConfigurationCreateDlg" widgetVar="PriceConfigurationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePriceConfigurationTitle}" closeOnEscape="true">
+
+            <h:form id="PriceConfigurationCreateForm">
+
+                <h:panelGroup id="display" rendered="#{priceConfigurationController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePriceConfigurationLabel_price}" for="price" />
+                        <p:inputText id="price" value="#{priceConfigurationController.selected.price}" title="#{myBundle.CreatePriceConfigurationTitle_price}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePriceConfigurationLabel_customerId}" for="customerId" />
+                        <p:selectOneMenu id="customerId" value="#{priceConfigurationController.selected.customerId}"  converter="customersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customersController.items}"
+                                           var="customerIdItem"
+                                           itemValue="#{customerIdItem}"
+                                           itemLabel="#{customerIdItem.fullName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreatePriceConfigurationLabel_gasTypeId}" for="gasTypeId" />
+                        <p:selectOneMenu id="gasTypeId" value="#{priceConfigurationController.selected.gasTypeId}"  converter="gasInfoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{gasInfoController.items}"
+                                           var="gasTypeIdItem"
+                                           itemValue="#{gasTypeIdItem}"
+                                           itemLabel="#{gasTypeIdItem.gasTypeId.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{priceConfigurationController.saveNew}" value="#{myBundle.Save}" update="display,:PriceConfigurationListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PriceConfigurationCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PriceConfigurationCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PriceConfigurationViewDlg" widgetVar="PriceConfigurationViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPriceConfigurationTitle}" closeOnEscape="true">
+
+            <h:form id="PriceConfigurationViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{priceConfigurationController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_priceConfigId}"/>
+                        <h:outputText value="#{priceConfigurationController.selected.priceConfigId}" title="#{myBundle.ViewPriceConfigurationTitle_priceConfigId}"/>
+
+                        <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_price}"/>
+                        <h:outputText value="#{priceConfigurationController.selected.price}" title="#{myBundle.ViewPriceConfigurationTitle_price}"/>
+
+                        <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_customerId}"/>
+                        <h:outputText value="#{priceConfigurationController.selected.customerId.fullName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_gasTypeId}"/>
+                        <h:outputText value="#{priceConfigurationController.selected.gasTypeId.gasTypeId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PriceConfigurationViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

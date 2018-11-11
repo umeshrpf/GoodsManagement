@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CustomersListForm" rendered="#{loginBean.success}">
+
+        <p:panel header="#{myBundle.ListCustomersTitle}">
+            <p:contextMenu id="CustomersDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CustomersListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CustomersListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CustomersListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CustomersListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CustomersMenuItem_priceConfigurationCollection}" icon="ui-icon-search"  action="#{customersController.navigatePriceConfigurationCollection}" disabled="#{customersController.isPriceConfigurationCollectionEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CustomersMenuItem_cylinderTransactionCollection}" icon="ui-icon-search"  action="#{customersController.navigateCylinderTransactionCollection}" disabled="#{customersController.isCylinderTransactionCollectionEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CustomersMenuItem_depositsCollection}" icon="ui-icon-search"  action="#{customersController.navigateDepositsCollection}" disabled="#{customersController.isDepositsCollectionEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{customersController.items}"
+                         lazy="false"
+                         rowKey="#{item.customerId}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{customersController.selected}"
+                         filteredValue="#{customersController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{customersController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.customerId}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CustomersDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CustomersDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CustomersListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.customerId}" filterBy="#{item.customerId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_customerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customerId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contactNumber}" filterBy="#{item.contactNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_contactNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contactNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contactPerson}" filterBy="#{item.contactPerson}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_contactPerson}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contactPerson}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.customerAddress}" filterBy="#{item.customerAddress}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_customerAddress}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customerAddress}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dumbrage0To15}" filterBy="#{item.dumbrage0To15}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_dumbrage0To15}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dumbrage0To15}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dumbrage15To30}" filterBy="#{item.dumbrage15To30}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_dumbrage15To30}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dumbrage15To30}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dumbrage30To45}" filterBy="#{item.dumbrage30To45}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_dumbrage30To45}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dumbrage30To45}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dumbrage45To60}" filterBy="#{item.dumbrage45To60}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_dumbrage45To60}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dumbrage45To60}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dumbrageOver90}" filterBy="#{item.dumbrageOver90}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_dumbrageOver90}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dumbrageOver90}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fullName}" filterBy="#{item.fullName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_fullName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fullName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gstNumber}" filterBy="#{item.gstNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_gstNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gstNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.shortName}" filterBy="#{item.shortName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_shortName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.shortName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomersTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{customersController.prepareCreate}" update=":CustomersCreateForm" oncomplete="PF('CustomersCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CustomersViewForm" oncomplete="PF('CustomersViewDialog').show()" disabled="#{empty customersController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CustomersEditForm" oncomplete="PF('CustomersEditDialog').show()" disabled="#{empty customersController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{customersController.delete}" update=":growl,datalist" disabled="#{empty customersController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

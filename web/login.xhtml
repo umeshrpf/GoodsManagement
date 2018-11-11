@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+   
+    <h:form id="loginForm">
+        <p:panelGrid columns="3" id="loginPanel">
+            
+            <p:outputLabel value="User Name" />
+            
+            <p:inputText id="user" value="#{loginBean.userName}" 
+                         
+                         required="true" requiredMessage="UserName is required"/>
+            
+            <p:message for="user" />
+            
+            <p:outputLabel value="Password" 
+                           />
+            
+            <p:password id="pass" value="#{loginBean.passWord}"
+                        required="true" requiredMessage="Password is required"/>
+            
+            <p:message for="pass" />
+            
+            <p:commandButton value="Login"  action="#{loginBean.login()}"/>
+            
+        </p:panelGrid>
+    </h:form>
+    
+
+</html>

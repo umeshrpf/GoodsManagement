@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepositsViewDlg" widgetVar="DepositsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDepositsTitle}" closeOnEscape="true">
+
+            <h:form id="DepositsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{depositsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_depositId}"/>
+                        <h:outputText value="#{depositsController.selected.depositId}" title="#{myBundle.ViewDepositsTitle_depositId}"/>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_amount}"/>
+                        <h:outputText value="#{depositsController.selected.amount}" title="#{myBundle.ViewDepositsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_chequeDate}"/>
+                        <h:outputText value="#{depositsController.selected.chequeDate}" title="#{myBundle.ViewDepositsTitle_chequeDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_chequeNumber}"/>
+                        <h:outputText value="#{depositsController.selected.chequeNumber}" title="#{myBundle.ViewDepositsTitle_chequeNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_depositDate}"/>
+                        <h:outputText value="#{depositsController.selected.depositDate}" title="#{myBundle.ViewDepositsTitle_depositDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_status}"/>
+                        <h:outputText value="#{depositsController.selected.status}" title="#{myBundle.ViewDepositsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewDepositsLabel_customerId}"/>
+                        <h:outputText value="#{depositsController.selected.customerId.fullName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DepositsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

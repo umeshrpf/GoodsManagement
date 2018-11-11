@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsersTitle}" closeOnEscape="true">
+
+            <h:form id="UsersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{usersController.selected.name}" title="#{myBundle.CreateUsersTitle_name}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_role}" for="role" />
+                        <p:inputText id="role" value="#{usersController.selected.role}" title="#{myBundle.CreateUsersTitle_role}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_role}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{myBundle.CreateUsersTitle_password}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usersController.saveNew}" value="#{myBundle.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

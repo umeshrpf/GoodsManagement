@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepositsCreateDlg" widgetVar="DepositsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDepositsTitle}" closeOnEscape="true">
+
+            <h:form id="DepositsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{depositsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{depositsController.selected.amount}" title="#{myBundle.CreateDepositsTitle_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_chequeDate}" for="chequeDate" />
+                        <p:calendar id="chequeDate" pattern="MM/dd/yyyy" value="#{depositsController.selected.chequeDate}" title="#{myBundle.CreateDepositsTitle_chequeDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_chequeNumber}" for="chequeNumber" />
+                        <p:inputText id="chequeNumber" value="#{depositsController.selected.chequeNumber}" title="#{myBundle.CreateDepositsTitle_chequeNumber}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_depositDate}" for="depositDate" />
+                        <p:calendar id="depositDate" pattern="MM/dd/yyyy" value="#{depositsController.selected.depositDate}" title="#{myBundle.CreateDepositsTitle_depositDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{depositsController.selected.status}" title="#{myBundle.CreateDepositsTitle_status}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDepositsLabel_customerId}" for="customerId" />
+                        <p:selectOneMenu id="customerId" value="#{depositsController.selected.customerId}"  converter="customersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customersController.items}"
+                                           var="customerIdItem"
+                                           itemValue="#{customerIdItem}"
+                                           itemLabel="#{customerIdItem.fullName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{depositsController.saveNew}" value="#{myBundle.Save}" update="display,:DepositsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepositsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DepositsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

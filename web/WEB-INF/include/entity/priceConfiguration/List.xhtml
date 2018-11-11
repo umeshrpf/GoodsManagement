@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PriceConfigurationListForm" rendered="#{loginBean.success and loginBean.adminRole}">
+
+        <p:panel header="#{myBundle.ListPriceConfigurationTitle}">
+            <p:contextMenu id="PriceConfigurationDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PriceConfigurationListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PriceConfigurationListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PriceConfigurationListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PriceConfigurationListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PriceConfigurationMenuItem_customerId}" icon="ui-icon-search"  actionListener="#{priceConfigurationController.prepareCustomerId}" update=":CustomersViewForm" oncomplete="PF('CustomersViewDialog').show()" disabled="#{empty priceConfigurationController.selected.customerId}"/>  
+                <p:menuitem value="#{myBundle.PriceConfigurationMenuItem_gasTypeId}" icon="ui-icon-search"  actionListener="#{priceConfigurationController.prepareGasTypeId}" update=":GasInfoViewForm" oncomplete="PF('GasInfoViewDialog').show()" disabled="#{empty priceConfigurationController.selected.gasTypeId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{priceConfigurationController.items}"
+                         lazy="false"
+                         rowKey="#{item.priceConfigId}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{priceConfigurationController.selected}"
+                         filteredValue="#{priceConfigurationController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{priceConfigurationController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.priceConfigId}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PriceConfigurationDataTableContextMenu" listener="#{priceConfigurationController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PriceConfigurationDataTableContextMenu" listener="#{priceConfigurationController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{priceConfigurationController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PriceConfigurationListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.priceConfigId}" filterBy="#{item.priceConfigId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPriceConfigurationTitle_priceConfigId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.priceConfigId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.price}" filterBy="#{item.price}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPriceConfigurationTitle_price}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.price}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.customerId.fullName}" filterBy="#{item.customerId.fullName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPriceConfigurationTitle_customerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customerId.fullName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gasTypeId.gasTypeId}" filterBy="#{item.gasTypeId.gasTypeId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPriceConfigurationTitle_gasTypeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gasTypeId.gasTypeId}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{priceConfigurationController.prepareCreate}" update=":PriceConfigurationCreateForm" oncomplete="PF('PriceConfigurationCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PriceConfigurationViewForm" oncomplete="PF('PriceConfigurationViewDialog').show()" disabled="#{empty priceConfigurationController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PriceConfigurationEditForm" oncomplete="PF('PriceConfigurationEditDialog').show()" disabled="#{empty priceConfigurationController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{priceConfigurationController.delete}" update=":growl,datalist" disabled="#{empty priceConfigurationController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

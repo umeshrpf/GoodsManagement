@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CylinderTransactionListForm">
+
+        <p:panel header="#{myBundle.ListCylinderTransactionTitle}">
+            <p:contextMenu id="CylinderTransactionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CylinderTransactionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CylinderTransactionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CylinderTransactionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CylinderTransactionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CylinderTransactionMenuItem_customerId}" icon="ui-icon-search"  actionListener="#{cylinderTransactionController.prepareCustomerId}" update=":CustomersViewForm" oncomplete="PF('CustomersViewDialog').show()" disabled="#{empty cylinderTransactionController.selected.customerId}"/>  
+                <p:menuitem value="#{myBundle.CylinderTransactionMenuItem_cylinderId}" icon="ui-icon-search"  actionListener="#{cylinderTransactionController.prepareCylinderId}" update=":CylindersViewForm" oncomplete="PF('CylindersViewDialog').show()" disabled="#{empty cylinderTransactionController.selected.cylinderId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{cylinderTransactionController.items}"
+                         lazy="false"
+                         rowKey="#{item.transactionId}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cylinderTransactionController.selected}"
+                         filteredValue="#{cylinderTransactionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cylinderTransactionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.transactionId}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CylinderTransactionDataTableContextMenu" listener="#{cylinderTransactionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CylinderTransactionDataTableContextMenu" listener="#{cylinderTransactionController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{cylinderTransactionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CylinderTransactionListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.transactionId}" filterBy="#{item.transactionId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_transactionId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.transactionId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.logOutInvoiceNo}" filterBy="#{item.logOutInvoiceNo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_logOutInvoiceNo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.logOutInvoiceNo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.loginDate}" filterBy="#{item.loginDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_loginDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.loginDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.loginInvoiceNo}" filterBy="#{item.loginInvoiceNo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_loginInvoiceNo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.loginInvoiceNo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.logOutDate}" filterBy="#{item.logOutDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_logOutDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.logOutDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.customerId.fullName}" filterBy="#{item.customerId.fullName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_customerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customerId.fullName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cylinderId.ownerName}" filterBy="#{item.cylinderId.ownerName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_cylinderId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cylinderId.ownerName}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cylinderTransactionController.prepareCreate}" update=":CylinderTransactionCreateForm" oncomplete="PF('CylinderTransactionCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CylinderTransactionViewForm" oncomplete="PF('CylinderTransactionViewDialog').show()" disabled="#{empty cylinderTransactionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CylinderTransactionEditForm" oncomplete="PF('CylinderTransactionEditDialog').show()" disabled="#{empty cylinderTransactionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cylinderTransactionController.delete}" update=":growl,datalist" disabled="#{empty cylinderTransactionController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

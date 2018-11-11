@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CylindersViewDlg" widgetVar="CylindersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCylindersTitle}" closeOnEscape="true">
+
+            <h:form id="CylindersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cylindersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_cylinderId}"/>
+                        <h:outputText value="#{cylindersController.selected.cylinderId}" title="#{myBundle.ViewCylindersTitle_cylinderId}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_capacity}"/>
+                        <h:outputText value="#{cylindersController.selected.capacity}" title="#{myBundle.ViewCylindersTitle_capacity}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_cylinderNumber}"/>
+                        <h:outputText value="#{cylindersController.selected.cylinderNumber}" title="#{myBundle.ViewCylindersTitle_cylinderNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_free}"/>
+                        <p:selectBooleanCheckbox id="free" value="#{cylindersController.selected.free}" title="#{myBundle.EditCylindersTitle_free}" />
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_invoiceDate}"/>
+                        <h:outputText value="#{cylindersController.selected.invoiceDate}" title="#{myBundle.ViewCylindersTitle_invoiceDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_invoiceNumber}"/>
+                        <h:outputText value="#{cylindersController.selected.invoiceNumber}" title="#{myBundle.ViewCylindersTitle_invoiceNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_lastTestDate}"/>
+                        <h:outputText value="#{cylindersController.selected.lastTestDate}" title="#{myBundle.ViewCylindersTitle_lastTestDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_manufacturer}"/>
+                        <h:outputText value="#{cylindersController.selected.manufacturer}" title="#{myBundle.ViewCylindersTitle_manufacturer}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_ownerName}"/>
+                        <h:outputText value="#{cylindersController.selected.ownerName}" title="#{myBundle.ViewCylindersTitle_ownerName}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_remarks}"/>
+                        <h:outputText value="#{cylindersController.selected.remarks}" title="#{myBundle.ViewCylindersTitle_remarks}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_status}"/>
+                        <h:outputText value="#{cylindersController.selected.status}" title="#{myBundle.ViewCylindersTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewCylindersLabel_gasTypeId}"/>
+                        <h:outputText value="#{cylindersController.selected.gasTypeId.gasTypeId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CylindersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
