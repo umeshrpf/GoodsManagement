@@ -5,10 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login page</title>
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+        <h:outputScript library="scripts" name="pfcrud.js"/>
+    </h:head>
 
+    <h:body>
    
-    <h:form id="loginForm">
-        <p:panelGrid columns="3" id="loginPanel">
+    <h:form id="loginForm" style="left:200px;top:200px;">
+        <p:panelGrid columns="3" id="loginPanel" columnClasses="column" >
             
             <p:outputLabel value="User Name" />
             
@@ -16,7 +22,7 @@
                          
                          required="true" requiredMessage="UserName is required"/>
             
-            <p:message for="user" />
+            <p:message for="user" id="mUser"/>
             
             <p:outputLabel value="Password" 
                            />
@@ -24,12 +30,16 @@
             <p:password id="pass" value="#{loginBean.passWord}"
                         required="true" requiredMessage="Password is required"/>
             
-            <p:message for="pass" />
+            <p:message for="pass" id="mPass"/>
             
-            <p:commandButton value="Login"  action="#{loginBean.login()}"/>
+            <h:commandButton value="Login"  action="#{loginBean.login()}" >
+               
+            </h:commandButton>
+            
+            <h:outputText value="User Name and Password incorrect" style="color:red" rendered="#{loginBean.failure}" id="result"/>
             
         </p:panelGrid>
     </h:form>
-    
+    </h:body>
 
 </html>

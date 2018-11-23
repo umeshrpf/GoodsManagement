@@ -34,11 +34,11 @@
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
 
-                        <h:outputText value="#{myBundle.ViewCylinderTransactionLabel_customerId}"/>
+                        <h:outputText value="Customer Name"/>
                         <h:outputText value="#{cylinderTransactionController.selected.customerId.fullName}"/>
 
-                        <h:outputText value="#{myBundle.ViewCylinderTransactionLabel_cylinderId}"/>
-                        <h:outputText value="#{cylinderTransactionController.selected.cylinderId.ownerName}"/>
+                        <h:outputText value="Cylinder Number"/>
+                        <h:outputText value="#{cylinderTransactionController.selected.cylinderId.cylinderNumber}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('CylinderTransactionViewDialog').hide()"/>
                 </h:panelGroup>

@@ -29,13 +29,13 @@
 
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="#{myBundle.CreatePriceConfigurationLabel_gasTypeId}" for="gasTypeId" />
+                        <p:outputLabel value="Gas Type" for="gasTypeId" />
                         <p:selectOneMenu id="gasTypeId" value="#{priceConfigurationController.selected.gasTypeId}"  converter="gasInfoConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
                             <f:selectItems value="#{gasInfoController.items}"
                                            var="gasTypeIdItem"
                                            itemValue="#{gasTypeIdItem}"
-                                           itemLabel="#{gasTypeIdItem.gasTypeId.toString()}"
+                                           itemLabel="#{gasTypeIdItem.gasType.toString()}"
                                            />
 
                         </p:selectOneMenu>

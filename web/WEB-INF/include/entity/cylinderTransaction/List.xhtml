@@ -90,17 +90,17 @@
 
                 <p:column sortBy="#{item.customerId.fullName}" filterBy="#{item.customerId.fullName}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_customerId}"/>
+                        <h:outputText value="Customer Name"/>
                     </f:facet>
                     <h:outputText value="#{item.customerId.fullName}"/>
                 </p:column>
 
 
-                <p:column sortBy="#{item.cylinderId.ownerName}" filterBy="#{item.cylinderId.ownerName}">
+                <p:column sortBy="#{item.cylinderId.cylinderNumber}" filterBy="#{item.cylinderId.cylinderNumber}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListCylinderTransactionTitle_cylinderId}"/>
+                        <h:outputText value="Cylinder Number"/>
                     </f:facet>
-                    <h:outputText value="#{item.cylinderId.ownerName}"/>
+                    <h:outputText value="#{item.cylinderId.cylinderNumber}"/>
                 </p:column>
 
 

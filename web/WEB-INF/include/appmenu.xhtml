@@ -19,8 +19,9 @@
                     <p:menuitem value="#{myBundle.PriceConfigurationHeading}..." outcome="/app/priceConfiguration/index" rendered="#{loginBean.success and loginBean.adminRole}"/>
                     <p:menuitem value="#{myBundle.UsersHeading}..." outcome="/app/users/index" rendered="#{loginBean.success and loginBean.adminRole}"/>
                 </p:submenu>
-                 <p:menuitem value="LogOut" outcome="/login" />
+               <p:menuitem value="Log Out"  outcome="/login" rendered="#{loginBean.success}"/>
             </p:menubar>
+            
         </h:form>
     </ui:composition>
 

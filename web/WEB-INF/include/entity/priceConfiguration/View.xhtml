@@ -24,8 +24,8 @@
                         <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_customerId}"/>
                         <h:outputText value="#{priceConfigurationController.selected.customerId.fullName}"/>
 
-                        <h:outputText value="#{myBundle.ViewPriceConfigurationLabel_gasTypeId}"/>
-                        <h:outputText value="#{priceConfigurationController.selected.gasTypeId.gasTypeId}"/>
+                        <h:outputText value="Gas Type"/>
+                        <h:outputText value="#{priceConfigurationController.selected.gasTypeId.gasType}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('PriceConfigurationViewDialog').hide()"/>
                 </h:panelGroup>

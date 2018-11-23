@@ -22,7 +22,7 @@
                         <p:inputText id="capacity" value="#{cylindersController.selected.capacity}" title="#{myBundle.EditCylindersTitle_capacity}"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_cylinderNumber}" for="cylinderNumber" />
-                        <p:inputText id="cylinderNumber" value="#{cylindersController.selected.cylinderNumber}" title="#{myBundle.EditCylindersTitle_cylinderNumber}" size="255" maxlength="255"/>
+                        <p:inputText id="cylinderNumber" value="#{cylindersController.selected.cylinderNumber}" title="#{myBundle.EditCylindersTitle_cylinderNumber}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_free}" for="free" />
                         <p:selectBooleanCheckbox id="free" value="#{cylindersController.selected.free}" />
@@ -31,30 +31,30 @@
                         <p:calendar id="invoiceDate" pattern="MM/dd/yyyy" value="#{cylindersController.selected.invoiceDate}" title="#{myBundle.EditCylindersTitle_invoiceDate}"  showOn="button"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_invoiceNumber}" for="invoiceNumber" />
-                        <p:inputText id="invoiceNumber" value="#{cylindersController.selected.invoiceNumber}" title="#{myBundle.EditCylindersTitle_invoiceNumber}" size="255" maxlength="255"/>
+                        <p:inputText id="invoiceNumber" value="#{cylindersController.selected.invoiceNumber}" title="#{myBundle.EditCylindersTitle_invoiceNumber}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_lastTestDate}" for="lastTestDate" />
                         <p:calendar id="lastTestDate" pattern="MM/dd/yyyy" value="#{cylindersController.selected.lastTestDate}" title="#{myBundle.EditCylindersTitle_lastTestDate}"  showOn="button"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_manufacturer}" for="manufacturer" />
-                        <p:inputText id="manufacturer" value="#{cylindersController.selected.manufacturer}" title="#{myBundle.EditCylindersTitle_manufacturer}" size="255" maxlength="255"/>
+                        <p:inputText id="manufacturer" value="#{cylindersController.selected.manufacturer}" title="#{myBundle.EditCylindersTitle_manufacturer}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_ownerName}" for="ownerName" />
-                        <p:inputText id="ownerName" value="#{cylindersController.selected.ownerName}" title="#{myBundle.EditCylindersTitle_ownerName}" size="255" maxlength="255"/>
+                        <p:inputText id="ownerName" value="#{cylindersController.selected.ownerName}" title="#{myBundle.EditCylindersTitle_ownerName}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_remarks}" for="remarks" />
-                        <p:inputText id="remarks" value="#{cylindersController.selected.remarks}" title="#{myBundle.EditCylindersTitle_remarks}" size="255" maxlength="255"/>
+                        <p:inputText id="remarks" value="#{cylindersController.selected.remarks}" title="#{myBundle.EditCylindersTitle_remarks}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.EditCylindersLabel_status}" for="status" />
                         <p:inputText id="status" value="#{cylindersController.selected.status}" title="#{myBundle.EditCylindersTitle_status}"/>
 
-                        <p:outputLabel value="#{myBundle.EditCylindersLabel_gasTypeId}" for="gasTypeId" />
+                        <p:outputLabel value="Gas Type" for="gasTypeId" />
                         <p:selectOneMenu id="gasTypeId" value="#{cylindersController.selected.gasTypeId}"  converter="gasInfoConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
                             <f:selectItems value="#{gasInfoController.items}"
                                            var="gasTypeIdItem"
                                            itemValue="#{gasTypeIdItem}"
-                                           itemLabel="#{gasTypeIdItem.gasTypeId.toString()}"
+                                           itemLabel="#{gasTypeIdItem.gasType.toString()}"
                                            />
 
                         </p:selectOneMenu>

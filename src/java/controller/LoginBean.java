@@ -37,6 +37,8 @@ public class LoginBean implements Serializable{
     
     private boolean success = false;
     
+    private boolean failure = false;
+    
     
     public String login(){
         
@@ -59,10 +61,19 @@ public class LoginBean implements Serializable{
         
         
         if(success){
+            failure = true;
         return "index";
         }else{
+            failure = true;
             return null;
         }
+        
+    }
+    
+    public String logOut(){
+         success = false;
+         adminRole = false;
+         return "index";
         
     }
 
@@ -96,6 +107,14 @@ public class LoginBean implements Serializable{
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public boolean isFailure() {
+        return failure;
+    }
+
+    public void setFailure(boolean failure) {
+        this.failure = failure;
     }
 
     

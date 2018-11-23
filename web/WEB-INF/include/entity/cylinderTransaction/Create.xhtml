@@ -16,13 +16,13 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{myBundle.CreateCylinderTransactionLabel_logOutInvoiceNo}" for="logOutInvoiceNo" />
-                        <p:inputText id="logOutInvoiceNo" value="#{cylinderTransactionController.selected.logOutInvoiceNo}" title="#{myBundle.CreateCylinderTransactionTitle_logOutInvoiceNo}" size="255" maxlength="255"/>
+                        <p:inputText id="logOutInvoiceNo" value="#{cylinderTransactionController.selected.logOutInvoiceNo}" title="#{myBundle.CreateCylinderTransactionTitle_logOutInvoiceNo}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.CreateCylinderTransactionLabel_loginDate}" for="loginDate" />
                         <p:calendar id="loginDate" pattern="MM/dd/yyyy" value="#{cylinderTransactionController.selected.loginDate}" title="#{myBundle.CreateCylinderTransactionTitle_loginDate}"  showOn="button"/>
 
                         <p:outputLabel value="#{myBundle.CreateCylinderTransactionLabel_loginInvoiceNo}" for="loginInvoiceNo" />
-                        <p:inputText id="loginInvoiceNo" value="#{cylinderTransactionController.selected.loginInvoiceNo}" title="#{myBundle.CreateCylinderTransactionTitle_loginInvoiceNo}" size="255" maxlength="255"/>
+                        <p:inputText id="loginInvoiceNo" value="#{cylinderTransactionController.selected.loginInvoiceNo}" title="#{myBundle.CreateCylinderTransactionTitle_loginInvoiceNo}" size="60" maxlength="255"/>
 
                         <p:outputLabel value="#{myBundle.CreateCylinderTransactionLabel_logOutDate}" for="logOutDate" />
                         <p:calendar id="logOutDate" pattern="MM/dd/yyyy" value="#{cylinderTransactionController.selected.logOutDate}" title="#{myBundle.CreateCylinderTransactionTitle_logOutDate}"  showOn="button"/>
@@ -38,13 +38,13 @@
 
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="#{myBundle.CreateCylinderTransactionLabel_cylinderId}" for="cylinderId" />
+                        <p:outputLabel value="Cylinder Number" for="cylinderId" />
                         <p:selectOneMenu id="cylinderId" value="#{cylinderTransactionController.selected.cylinderId}"  converter="cylindersConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
                             <f:selectItems value="#{cylindersController.items}"
                                            var="cylinderIdItem"
                                            itemValue="#{cylinderIdItem}"
-                                           itemLabel="#{cylinderIdItem.ownerName.toString()}"
+                                           itemLabel="#{cylinderIdItem.cylinderNumber.toString()}"
                                            />
 
                         </p:selectOneMenu>

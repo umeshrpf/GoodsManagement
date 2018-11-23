@@ -25,7 +25,7 @@
                         <h:outputText value="#{cylindersController.selected.cylinderNumber}" title="#{myBundle.ViewCylindersTitle_cylinderNumber}"/>
 
                         <h:outputText value="#{myBundle.ViewCylindersLabel_free}"/>
-                        <p:selectBooleanCheckbox id="free" value="#{cylindersController.selected.free}" title="#{myBundle.EditCylindersTitle_free}" />
+                        <p:selectBooleanCheckbox id="free" value="#{cylindersController.selected.free}"  />
 
                         <h:outputText value="#{myBundle.ViewCylindersLabel_invoiceDate}"/>
                         <h:outputText value="#{cylindersController.selected.invoiceDate}" title="#{myBundle.ViewCylindersTitle_invoiceDate}">
@@ -52,8 +52,8 @@
                         <h:outputText value="#{myBundle.ViewCylindersLabel_status}"/>
                         <h:outputText value="#{cylindersController.selected.status}" title="#{myBundle.ViewCylindersTitle_status}"/>
 
-                        <h:outputText value="#{myBundle.ViewCylindersLabel_gasTypeId}"/>
-                        <h:outputText value="#{cylindersController.selected.gasTypeId.gasTypeId}"/>
+                        <h:outputText value="Gas Type"/>
+                        <h:outputText value="#{cylindersController.selected.gasTypeId.gasType}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('CylindersViewDialog').hide()"/>
                 </h:panelGroup>
